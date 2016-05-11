@@ -7,6 +7,10 @@ public class Recipe {
   private String name;
   private String instructions;
 
+  public Recipe(String name) {
+    this.name = name;
+  }
+
   public Recipe(String name, String instructions) {
     this.name = name;
     this.instructions = instructions;
