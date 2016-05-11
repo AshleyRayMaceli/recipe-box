@@ -91,4 +91,13 @@ public class Ingredient {
     }
   }
 
+  // public void delete() {
+  //   try(Connection con = DB.sql2o.open()) {
+  //     String deleteQuery = "DELETE FROM ingredients WHERE id = :id";
+  //       con.createQuery(deleteQuery)
+  //         .addParameter("id", this.id)
+  //         .executeUpdate();
+  //   }
+  // }
+
 }

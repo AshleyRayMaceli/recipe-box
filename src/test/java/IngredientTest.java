@@ -86,4 +86,16 @@ public class IngredientTest {
     assertEquals("Marionberry", Ingredient.find(myIngredient.getId()).getReagent());
   }
 
+  // @Test
+  // public void delete_deleteAllIngredientAndRecipeAssociations_true() {
+  //   Recipe myRecipe = new Recipe("Wrap", "Roll a wrap with stuff in it");
+  //   myRecipe.save();
+  //   Ingredient myIngredient = new Ingredient("Stuff");
+  //   myIngredient.save();
+  //   myRecipe.addIngredient(myIngredient);
+  //   myIngredient.delete();
+  //   assertEquals(0, Ingredient.all().size());
+  //   assertEquals(0, myRecipe.getIngredients().size());
+  // }
+
 }
