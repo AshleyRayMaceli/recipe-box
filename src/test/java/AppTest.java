@@ -6,6 +6,7 @@ import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import static org.fluentlenium.core.filter.FilterConstructor.*;
 import org.sql2o.*;
 import org.junit.*;
+import static org.junit.Assert.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class AppTest extends FluentTest {
@@ -51,4 +52,24 @@ public class AppTest extends FluentTest {
     assertThat(pageSource()).contains("Cucumber Salad");
   }
 
+  @Test
+  public void recipeIsDeleted() {
+    Recipe testRecipe = new Recipe("Pasta");
+    testRecipe.save();
+    String url = String.format("http://localhost:4567/recipes/%d", testRecipe.getId());
+    goTo(url);
+    submit("#delete");
+    assertFalse(pageSource().contains("Pasta"));
+  }
+
+  // @Test
+  // public void recipeNameIsUpdated() {
+  //   Recipe testRecipe = new Recipe("Raaaaamen");
+  //   testRecipe.save();
+  //   String url = String.format("http://localhost:4567/recipes/%d", testRecipe.getId());
+  //   goTo(url);
+  //   click("a", withText("Edit Recipe Name"));
+  //   fill("#new-name").with("Ramen");
+  //   submit("#update")
+  // }
 }

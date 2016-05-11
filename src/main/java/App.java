@@ -44,5 +44,13 @@ public class App {
       response.redirect("/recipes/" + newRecipe.getId());
       return null;
     });
+
+    post("/recipes/:id/delete", (request, response) -> {
+      int recipeId = Integer.parseInt(request.params("id"));
+      Recipe recipe = Recipe.find(recipeId);
+      recipe.delete();
+      response.redirect("/recipes");
+      return null;
+    });
   }
 }

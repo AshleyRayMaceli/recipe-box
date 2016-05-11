@@ -1,3 +1,9 @@
+recipe.vtl
+
 <h1>$recipe.getName()</h1>
+
+<form action='/recipes/$recipe.getId()/delete' method='post'>
+  <button type="submit" class="btn btn-danger" id="delete">Delete</button>
+</form>
 
 <a href="/" class="btn btn-danger">Back To Home</a>
