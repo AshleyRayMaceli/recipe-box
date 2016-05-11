@@ -31,4 +31,11 @@ public class RecipeTest {
   public void all_emptyAtFirst() {
     assertEquals(Recipe.all().size(), 0);
   }
+
+  @Test
+  public void save_savesRecipeCorrectly_1() {
+    Recipe newRecipe = new Recipe("Pizza", "Spin the pizza in the air");
+    newRecipe.save();
+    assertEquals(1, Recipe.all().size());
+  }
 }

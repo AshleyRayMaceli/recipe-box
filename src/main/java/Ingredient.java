@@ -15,7 +15,7 @@ public class Ingredient {
   }
 
   public static List<Ingredient> all() {
-    String sql = "SELECT * FROM ingredients;";
+    String sql = "SELECT * FROM ingredients";
     try(Connection con = DB.sql2o.open()) {
       return con.createQuery(sql).executeAndFetch(Ingredient.class);
     }
@@ -28,6 +28,16 @@ public class Ingredient {
     } else {
       Ingredient newIngredient = (Ingredient) otherIngredient;
       return this.getReagent().equals(newIngredient.getReagent());
+    }
+  }
+
+  public void save() {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "INSERT INTO ingredients (reagent) VALUES (:reagent)";
+      this.id = (int) con.createQuery(sql, true)
+        .addParameter("reagent", this.reagent)
+        .executeUpdate()
+        .getKey();
     }
   }
 

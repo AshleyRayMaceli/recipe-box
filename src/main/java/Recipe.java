@@ -21,7 +21,7 @@ public class Recipe {
   }
 
   public static List<Recipe> all() {
-    String sql = "SELECT * FROM recipes;";
+    String sql = "SELECT * FROM recipes";
     try(Connection con = DB.sql2o.open()) {
       return con.createQuery(sql).executeAndFetch(Recipe.class);
     }
@@ -34,6 +34,16 @@ public class Recipe {
     } else {
       Recipe newRecipe = (Recipe) otherRecipe;
       return this.getName().equals(newRecipe.getName());
+    }
+  }
+
+  public void save() {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "INSERT INTO recipes (name) VALUES (:name)";
+      this.id = (int) con.createQuery(sql, true)
+        .addParameter("name", this.name)
+        .executeUpdate()
+        .getKey();
     }
   }
 }

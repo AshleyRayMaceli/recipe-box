@@ -32,4 +32,11 @@ public class IngredientTest {
     Ingredient secondIngredient = new Ingredient("Jalapenos");
     assertTrue(firstIngredient.equals(secondIngredient));
   }
+
+  @Test
+  public void save_savesIngredientCorrectly_1() {
+    Ingredient newIngredient = new Ingredient("Cheese");
+    newIngredient.save();
+    assertEquals(1, Ingredient.all().size());
+  }
 }
