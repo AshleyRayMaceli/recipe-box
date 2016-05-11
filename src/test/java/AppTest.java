@@ -35,6 +35,14 @@ public class AppTest extends FluentTest {
     assertThat(pageSource()).contains("All Recipes");
   }
 
+  @Test
+  public void recipeFormisDisplayed() {
+    goTo("http://localhost:4567/");
+    click("a", withText("Add Recipe"));
+    assertThat(pageSource()).contains("Add New Recipe");
+  }
+
+
   // @Test
   // public void recipeIsCreatedTest() {
   //   Recipe testRecipe = new Recipe("Cucumber Salad");

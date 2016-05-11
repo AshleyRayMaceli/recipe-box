@@ -22,6 +22,12 @@ public class App {
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
+    get("/recipes/new", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      model.put("template", "templates/recipe-form.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
     // post("/recipes/:id", (request, response) -> {
     //   Map<String, Object> model = new HashMap<String, Object>();
     //   String name = request.queryParams("name");
