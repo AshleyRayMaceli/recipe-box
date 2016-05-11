@@ -46,4 +46,14 @@ public class Ingredient {
     }
   }
 
+  public static Ingredient find(int id) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "SELECT * FROM ingredients WHERE id=:id";
+      Ingredient ingredient = con.createQuery(sql)
+      .addParameter("id", id)
+      .executeAndFetchFirst(Ingredient.class);
+    return ingredient;
+    }
+  }
+
 }

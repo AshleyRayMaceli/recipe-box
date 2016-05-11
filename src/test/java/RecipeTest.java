@@ -46,4 +46,13 @@ public class RecipeTest {
     Recipe savedRecipe = Recipe.all().get(0);
     assertEquals(myRecipe.getId(), savedRecipe.getId());
   }
+
+  @Test
+  public void find_findsRecipeInDatabase_true() {
+    Recipe myRecipe = new Recipe("Pineapple Juice", "Squeesh dose pineapples into a teacup");
+    myRecipe.save();
+    Recipe savedRecipe = Recipe.find(myRecipe.getId());
+    assertTrue(myRecipe.equals(savedRecipe));
+  }
+
 }

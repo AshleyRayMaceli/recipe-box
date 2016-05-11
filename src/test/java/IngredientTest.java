@@ -48,4 +48,12 @@ public class IngredientTest {
     assertEquals(myIngredient.getId(), savedIngredient.getId());
   }
 
+  @Test
+  public void find_findsIngredientInDatabase_true() {
+    Ingredient myIngredient = new Ingredient("Pineapples");
+    myIngredient.save();
+    Ingredient savedIngredient = Ingredient.find(myIngredient.getId());
+    assertTrue(myIngredient.equals(savedIngredient));
+  }
+
 }

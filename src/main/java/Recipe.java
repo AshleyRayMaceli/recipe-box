@@ -51,4 +51,14 @@ public class Recipe {
         .getKey();
     }
   }
+
+  public static Recipe find(int id) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "SELECT * FROM recipes WHERE id=:id";
+      Recipe recipe = con.createQuery(sql)
+      .addParameter("id", id)
+      .executeAndFetchFirst(Recipe.class);
+    return recipe;
+    }
+  }
 }
