@@ -93,4 +93,16 @@ public class RecipeTest {
     assertEquals("Put bread in the monkeys", Recipe.find(myRecipe.getId()).getInstructions());
   }
 
+  @Test
+  public void delete_deleteAllIngredientAndRecipeAssociations() {
+    Recipe myRecipe = new Recipe("Wrap", "Roll a wrap with stuff in it");
+    myRecipe.save();
+    Ingredient myIngredient = new Ingredient("Stuff");
+    myIngredient.save();
+    myIngredient.addRecipe(myRecipe);
+    myRecipe.delete();
+    assertEquals(0, Recipe.all().size());
+    assertEquals(0, myIngredient.getRecipes().size());
+  }
+
 }
