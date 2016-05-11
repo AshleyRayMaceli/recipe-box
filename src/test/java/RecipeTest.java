@@ -77,4 +77,20 @@ public class RecipeTest {
     assertEquals(1, savedIngredients.size());
   }
 
+  @Test
+  public void updateName_updatesRecipeName_true() {
+    Recipe myRecipe= new Recipe("Liver and Onions", "Hate your life, make this recipe, eat it, still hate your life");
+    myRecipe.save();
+    myRecipe.updateName("Bacon and Eggs");
+    assertEquals("Bacon and Eggs", Recipe.find(myRecipe.getId()).getName());
+  }
+
+  @Test
+  public void updateInstructions_updatesRecipeInstructions_true() {
+    Recipe myRecipe= new Recipe("Monkey Bread", "Put monkeys in the bread");
+    myRecipe.save();
+    myRecipe.updateInstructions("Put bread in the monkeys");
+    assertEquals("Put bread in the monkeys", Recipe.find(myRecipe.getId()).getInstructions());
+  }
+
 }

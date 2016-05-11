@@ -86,4 +86,24 @@ public class Recipe {
       return ingredients;
     }
   }
+
+  public void updateName(String newName) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "UPDATE recipes SET name = :name WHERE id = :id";
+      con.createQuery(sql)
+        .addParameter("name", newName)
+        .addParameter("id", this.getId())
+        .executeUpdate();
+    }
+  }
+
+  public void updateInstructions(String newInstructions) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "UPDATE recipes SET instructions = :instructions WHERE id = :id";
+      con.createQuery(sql)
+        .addParameter("instructions", newInstructions)
+        .addParameter("id", this.getId())
+        .executeUpdate();
+    }
+  }
 }

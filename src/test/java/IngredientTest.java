@@ -78,5 +78,12 @@ public class IngredientTest {
     assertEquals(1, savedRecipes.size());
   }
 
+  @Test
+  public void update_updatesIngredientReagent_true() {
+    Ingredient myIngredient= new Ingredient("Strawberry");
+    myIngredient.save();
+    myIngredient.update("Marionberry");
+    assertEquals("Marionberry", Ingredient.find(myIngredient.getId()).getReagent());
+  }
 
 }

@@ -81,4 +81,14 @@ public class Ingredient {
     }
   }
 
+  public void update(String newReagent) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "UPDATE ingredients SET reagent = :reagent WHERE id = :id";
+      con.createQuery(sql)
+        .addParameter("reagent", newReagent)
+        .addParameter("id", this.getId())
+        .executeUpdate();
+    }
+  }
+
 }
