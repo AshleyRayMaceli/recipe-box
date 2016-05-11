@@ -25,4 +25,11 @@ public class IngredientTest {
   public void all_emptyAtFirst() {
     assertEquals(Ingredient.all().size(), 0);
   }
+
+  @Test
+  public void equals_returnsTrueIfIngredientsAreTheSame_true() {
+    Ingredient firstIngredient = new Ingredient("Jalapenos");
+    Ingredient secondIngredient = new Ingredient("Jalapenos");
+    assertTrue(firstIngredient.equals(secondIngredient));
+  }
 }

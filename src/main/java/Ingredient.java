@@ -20,4 +20,15 @@ public class Ingredient {
       return con.createQuery(sql).executeAndFetch(Ingredient.class);
     }
   }
+
+  @Override
+  public boolean equals(Object otherIngredient) {
+    if (!(otherIngredient instanceof Ingredient)) {
+      return false;
+    } else {
+      Ingredient newIngredient = (Ingredient) otherIngredient;
+      return this.getReagent().equals(newIngredient.getReagent());
+    }
+  }
+
 }

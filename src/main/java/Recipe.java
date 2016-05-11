@@ -26,4 +26,14 @@ public class Recipe {
       return con.createQuery(sql).executeAndFetch(Recipe.class);
     }
   }
+
+  @Override
+  public boolean equals(Object otherRecipe) {
+    if (!(otherRecipe instanceof Recipe)) {
+      return false;
+    } else {
+      Recipe newRecipe = (Recipe) otherRecipe;
+      return this.getName().equals(newRecipe.getName());
+    }
+  }
 }
