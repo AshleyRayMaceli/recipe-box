@@ -10,6 +10,10 @@ public class Ingredient {
     this.reagent = reagent;
   }
 
+  public int getId() {
+    return id;
+  }
+
   public String getReagent() {
     return reagent;
   }
@@ -27,7 +31,8 @@ public class Ingredient {
       return false;
     } else {
       Ingredient newIngredient = (Ingredient) otherIngredient;
-      return this.getReagent().equals(newIngredient.getReagent());
+      return this.getReagent().equals(newIngredient.getReagent()) &&
+             this.getId() == (newIngredient.getId());
     }
   }
 

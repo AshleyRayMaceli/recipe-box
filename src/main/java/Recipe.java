@@ -12,6 +12,10 @@ public class Recipe {
     this.instructions = instructions;
   }
 
+  public int getId() {
+    return id;
+  }
+
   public String getName() {
     return name;
   }
@@ -33,7 +37,8 @@ public class Recipe {
       return false;
     } else {
       Recipe newRecipe = (Recipe) otherRecipe;
-      return this.getName().equals(newRecipe.getName());
+      return this.getName().equals(newRecipe.getName()) &&
+             this.getId() == (newRecipe.getId());
     }
   }
 

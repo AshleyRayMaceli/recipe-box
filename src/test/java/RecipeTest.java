@@ -38,4 +38,12 @@ public class RecipeTest {
     newRecipe.save();
     assertEquals(1, Recipe.all().size());
   }
+
+  @Test
+  public void save_assignsIdToObject() {
+    Recipe myRecipe = new Recipe("Glazed Yams", "Smear cinnamon all over dem yams");
+    myRecipe.save();
+    Recipe savedRecipe = Recipe.all().get(0);
+    assertEquals(myRecipe.getId(), savedRecipe.getId());
+  }
 }

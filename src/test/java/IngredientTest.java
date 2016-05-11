@@ -39,4 +39,13 @@ public class IngredientTest {
     newIngredient.save();
     assertEquals(1, Ingredient.all().size());
   }
+
+  @Test
+  public void save_assignsIdToObject() {
+    Ingredient myIngredient = new Ingredient("Tomatoes");
+    myIngredient.save();
+    Ingredient savedIngredient = Ingredient.all().get(0);
+    assertEquals(myIngredient.getId(), savedIngredient.getId());
+  }
+
 }
