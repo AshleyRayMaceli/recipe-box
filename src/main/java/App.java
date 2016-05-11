@@ -28,14 +28,21 @@ public class App {
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
-    // post("/recipes/:id", (request, response) -> {
-    //   Map<String, Object> model = new HashMap<String, Object>();
-    //   String name = request.queryParams("name");
-    //   Recipe recipe = new Recipe(name);
-    //   recipe.save();
-    //   model.put("id", recipe.getId());
-    //   model.put("template", "templates/recipe.vtl");
-    //   return new ModelAndView(model, layout);
-    // }, new VelocityTemplateEngine());
+    get("/recipes/:id", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      Recipe recipe = Recipe.find(Integer.parseInt(request.params(":id")));
+      model.put("recipe", recipe);
+      model.put("template", "templates/recipe.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    post("/recipes/:id", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      String name = request.queryParams("name");
+      Recipe newRecipe = new Recipe(name);
+      newRecipe.save();
+      response.redirect("/recipes/" + newRecipe.getId());
+      return null;
+    });
   }
 }

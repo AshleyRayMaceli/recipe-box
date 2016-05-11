@@ -1,3 +1,8 @@
 <h1>All Recipes</h1>
 
+#foreach ($recipe in $recipes)
+  <a href="/recipes/$recipe.getId()">$recipe.getName()</a>
+  <br>
+#end
+
 <a href="/" class="btn btn-danger">Back To Home</a>

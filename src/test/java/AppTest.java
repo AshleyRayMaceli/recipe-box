@@ -42,14 +42,13 @@ public class AppTest extends FluentTest {
     assertThat(pageSource()).contains("Add New Recipe");
   }
 
-
-  // @Test
-  // public void recipeIsCreatedTest() {
-  //   Recipe testRecipe = new Recipe("Cucumber Salad");
-  //   testRecipe.save();
-  //   String url = String.format("http://localhost:4567/recipes/%d", testRecipe.getId());
-  //   goTo(url);
-  //   assertThat(pageSource()).contains("Cucumber Salad");
-  // }
+  @Test
+  public void recipeIsCreatedTest() {
+    Recipe testRecipe = new Recipe("Cucumber Salad");
+    testRecipe.save();
+    String url = String.format("http://localhost:4567/recipes/%d", testRecipe.getId());
+    goTo(url);
+    assertThat(pageSource()).contains("Cucumber Salad");
+  }
 
 }
