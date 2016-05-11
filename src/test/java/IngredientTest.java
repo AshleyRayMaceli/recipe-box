@@ -56,4 +56,27 @@ public class IngredientTest {
     assertTrue(myIngredient.equals(savedIngredient));
   }
 
+  @Test
+  public void addRecipe_addRecipeToIngredient() {
+    Recipe myRecipe = new Recipe("Buffalo Chicken", "Add chicken to a buffalo");
+    myRecipe.save();
+    Ingredient myIngredient = new Ingredient("Chicken");
+    myIngredient.save();
+    myIngredient.addRecipe(myRecipe);
+    Recipe savedRecipe = myIngredient.getRecipes().get(0);
+    assertTrue(myRecipe.equals(savedRecipe));
+  }
+
+  @Test
+  public void getRecipes_returnsAllRecipes_List() {
+    Recipe myRecipe = new Recipe("Wrap", "Roll a wrap with stuff in it");
+    myRecipe.save();
+    Ingredient myIngredient = new Ingredient("Stuff");
+    myIngredient.save();
+    myRecipe.addIngredient(myIngredient);
+    List savedRecipes = myIngredient.getRecipes();
+    assertEquals(1, savedRecipes.size());
+  }
+
+
 }

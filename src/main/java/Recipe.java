@@ -61,4 +61,35 @@ public class Recipe {
     return recipe;
     }
   }
+
+  public void addIngredient(Ingredient ingredient) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "INSERT INTO ingredients_recipes (ingredient_id, recipe_id) VALUES (:ingredient_id, :recipe_id)";
+        con.createQuery(sql)
+          .addParameter("ingredient_id", ingredient.getId())
+          .addParameter("recipe_id", this.getId())
+          .executeUpdate();
+    }
+  }
+
+  public List<Ingredient> getIngredients() {
+    try(Connection con = DB.sql2o.open()) {
+      String joinQuery = "SELECT ingredient_id FROM ingredients_recipes WHERE recipe_id = :recipe_id";
+
+      List<Integer> ingredientIds = con.createQuery(joinQuery)
+        .addParameter("recipe_id", this.getId())
+        .executeAndFetch(Integer.class);
+
+      List<Ingredient> ingredients = new ArrayList<Ingredient>();
+
+      for (Integer ingredientId : ingredientIds) {
+        String ingredientQuery = "SELECT * FROM ingredients WHERE id = :ingredientId";
+        Ingredient ingredient = con.createQuery(ingredientQuery)
+          .addParameter("ingredientId", ingredientId)
+          .executeAndFetchFirst(Ingredient.class);
+        ingredients.add(ingredient);
+      }
+      return ingredients;
+    }
+  }
 }

@@ -55,4 +55,26 @@ public class RecipeTest {
     assertTrue(myRecipe.equals(savedRecipe));
   }
 
+  @Test
+  public void addIngredient_addIngredientToRecipe() {
+    Ingredient myIngredient = new Ingredient("Orca Meat");
+    myIngredient.save();
+    Recipe myRecipe = new Recipe("Succulent Seafood Extravaganza", "Butcher an orca");
+    myRecipe.save();
+    myRecipe.addIngredient(myIngredient);
+    Ingredient savedIngredient = myRecipe.getIngredients().get(0);
+    assertTrue(myIngredient.equals(savedIngredient));
+  }
+
+  @Test
+  public void getIngredients_returnsAllIngredients_List() {
+    Recipe myRecipe = new Recipe("Chocolate Chip Cookie", "Put sum cheepz in dere");
+    myRecipe.save();
+    Ingredient myIngredient = new Ingredient("Choco Choco Chips");
+    myIngredient.save();
+    myRecipe.addIngredient(myIngredient);
+    List savedIngredients = myRecipe.getIngredients();
+    assertEquals(1, savedIngredients.size());
+  }
+
 }
