@@ -67,16 +67,16 @@ public class TagTest {
     assertTrue(myRecipe.equals(savedRecipe));
   }
 
-  // @Test
-  // public void getRecipes_returnsAllRecipes_List() {
-  //   Recipe myRecipe = new Recipe("Wrap", "Roll a wrap with stuff in it");
-  //   myRecipe.save();
-  //   Tag myTag = new Tag("Stuff");
-  //   myTag.save();
-  //   myRecipe.addTag(myTag);
-  //   List savedRecipes = myTag.getRecipes();
-  //   assertEquals(1, savedRecipes.size());
-  // }
+  @Test
+  public void getRecipes_returnsAllRecipes_List() {
+    Recipe myRecipe = new Recipe("Wrap", "Roll a wrap with stuff in it");
+    myRecipe.save();
+    Tag myTag = new Tag("Chinese");
+    myTag.save();
+    myRecipe.addTag(myTag);
+    List savedRecipes = myTag.getRecipes();
+    assertEquals(1, savedRecipes.size());
+  }
 
   @Test
   public void update_updatesTagName_true() {

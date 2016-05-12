@@ -91,6 +91,16 @@ public class Recipe {
     }
   }
 
+  public void addTag(Tag tag) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "INSERT INTO recipes_tags (recipe_id, tag_id) VALUES (:recipe_id, :tag_id)";
+        con.createQuery(sql)
+          .addParameter("tag_id", tag.getId())
+          .addParameter("recipe_id", this.getId())
+          .executeUpdate();
+    }
+  }
+
   public void updateName(String newName) {
     try(Connection con = DB.sql2o.open()) {
       String sql = "UPDATE recipes SET name = :name WHERE id = :id";
