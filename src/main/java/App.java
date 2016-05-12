@@ -106,9 +106,23 @@ public class App {
     post("/recipes/:id/tag/new", (request, response) -> {
       Recipe recipe = Recipe.find(Integer.parseInt(request.params(":id")));
       String nameTag = request.queryParams("name-tag");
+      List<Tag> allTags = Tag.all();
       Tag newTag = new Tag(nameTag);
-      newTag.save();
-      recipe.addTag(newTag);
+      boolean matchFound = false;
+
+      for(Tag oldTag : allTags) {
+        if(newTag.getName().equals(oldTag.getName())) {
+          recipe.addTag(oldTag);
+          matchFound = true;
+          break;
+        }
+      }
+
+      if (matchFound == false) {
+        newTag.save();
+        recipe.addTag(newTag);
+      }
+
       response.redirect("/recipes/" + recipe.getId());
       return null;
     });
