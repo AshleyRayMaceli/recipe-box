@@ -21,7 +21,7 @@ recipe.vtl
       <button type="submit" class="btn btn-danger" id="delete-recipe">Delete Recipe</button>
     </form>
     <br>
-    <a href="/" class="btn btn-danger">Back To Home</a>
+
   </div>
 
   <div class="col-md-6">
@@ -39,3 +39,30 @@ recipe.vtl
     #end
   </div>
 </div>
+
+<div class="row">
+  <div class="col-md-6">
+    <form action ="/recipes/$recipe.getId()/update-instructions" method="post">
+      <textarea name="update-instructions" id="update-instructions-textarea" required></textarea>
+
+      #if ($recipe.getInstructions())
+      <div>
+        <button type="submit" id="updateInstructions" class="btn btn-warning">Update Instructions</button>
+      </div>
+      #else
+      <div>
+        <button type="submit" id="submitNewInstructions" class="btn btn-warning">Add Instructions</button>
+      </div>
+      #end
+  </div>
+
+  <div class="col-md-6">
+    #if ($recipe.getInstructions())
+    <span class="instructions">$recipe.getInstructions()</span>
+    #else
+    <span class="instructions">There are no instructions for this recipe yet! Add some to the left!</span>
+    #end
+  </div>
+</div>
+
+<a href="/" class="btn btn-danger home">Back To Home</a>

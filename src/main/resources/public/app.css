@@ -1,4 +1,26 @@
 body {
+  background: url(/home.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: black;
   text-align: center;
   font-family: monospace;
+  color: white;
+}
+
+input, textarea {
+  color: black;
+}
+
+.home {
+  font-size: 16pt;
+}
+
+.instructions {
+  font-size: 14pt;
+}
+#update-instructions-textarea {
+  width: 400px;
+  height: 200px;
+  font-size: 14pt;
 }
