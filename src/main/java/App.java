@@ -38,7 +38,6 @@ public class App {
     }, new VelocityTemplateEngine());
 
     post("/recipes/:id", (request, response) -> {
-      Map<String, Object> model = new HashMap<String, Object>();
       String name = request.queryParams("name");
       Recipe newRecipe = new Recipe(name);
       newRecipe.save();
@@ -47,12 +46,21 @@ public class App {
     });
 
     post("/recipes/:id/ingredient/new", (request, response) -> {
-      Map<String, Object> model = new HashMap<String, Object>();
       Recipe recipe = Recipe.find(Integer.parseInt(request.params(":id")));
       String reagent = request.queryParams("reagent");
       Ingredient newIngredient = new Ingredient(reagent);
       newIngredient.save();
       recipe.addIngredient(newIngredient);
+      response.redirect("/recipes/" + recipe.getId());
+      return null;
+    });
+
+    post("/recipes/:id/tag/new", (request, response) -> {
+      Recipe recipe = Recipe.find(Integer.parseInt(request.params(":id")));
+      String nameTag = request.queryParams("name-tag");
+      Tag newTag = new Tag(nameTag);
+      newTag.save();
+      recipe.addTag(newTag);
       response.redirect("/recipes/" + recipe.getId());
       return null;
     });
@@ -89,6 +97,16 @@ public class App {
       Recipe recipe = Recipe.find(recipeId);
       Ingredient ingredient = Ingredient.find(ingredientId);
       ingredient.delete();
+      response.redirect("/recipes/" + recipe.getId());
+      return null;
+    });
+
+    post("/recipes/:id/tag/:tag_id/delete", (request, response) -> {
+      int recipeId = Integer.parseInt(request.params("id"));
+      int tagId = Integer.parseInt(request.params("tag_id"));
+      Recipe recipe = Recipe.find(recipeId);
+      Tag tag = Tag.find(tagId);
+      tag.delete();
       response.redirect("/recipes/" + recipe.getId());
       return null;
     });

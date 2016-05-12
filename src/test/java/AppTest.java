@@ -84,4 +84,16 @@ public class AppTest extends FluentTest {
     submit("#update-submit");
     assertThat(pageSource().contains("Ramen"));
   }
+
+  @Test
+  public void tagIsDeleted() {
+    Recipe testRecipe = new Recipe ("PizzaPie");
+    testRecipe.save();
+    Tag testTag = new Tag ("Italian");
+    testRecipe.addTag(testTag);
+    String url = String.format("http://localhost:4567/recipes/%d", testRecipe.getId());
+    goTo(url);
+    submit("#delete-tag-" + testTag.getId());
+    assertFalse(pageSource().contains("Italian"));
+  }
 }

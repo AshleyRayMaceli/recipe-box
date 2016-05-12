@@ -19,6 +19,11 @@ input, textarea {
 .instructions {
   font-size: 14pt;
 }
+
+.tag-display {
+  display: inline-block;
+}
+
 #update-instructions-textarea {
   width: 400px;
   height: 200px;
