@@ -12,12 +12,45 @@ public class App {
     get("/", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
       model.put("template", "templates/index.vtl");
+      model.put("recipes", Recipe.all());
+      model.put("tags", Tag.all());
+      model.put("ingredients", Ingredient.all());
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
     get("/recipes", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
       model.put("recipes", Recipe.all());
+      model.put("tags", Tag.all());
+      model.put("ingredients", Ingredient.all());
+      model.put("template", "templates/recipes.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    post("/recipes", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+
+      Integer tagDropDownResult = Integer.parseInt(request.queryParams("tagId"));
+      Tag tag = Tag.find(tagDropDownResult);
+      if (tagDropDownResult == 0) {
+        tag = new Tag("");
+      }
+
+      Integer ingredientDropDownResult = Integer.parseInt(request.queryParams("ingredientId"));
+      Ingredient ingredient = Ingredient.find(ingredientDropDownResult);
+      if (ingredientDropDownResult == 0) {
+        ingredient = new Ingredient("");
+      }
+
+      model.put("actualTag", tag);
+      model.put("actualIngredient", ingredient);
+      model.put("tag", tag.getName());
+      model.put("tagID", tag.getId());
+      model.put("ingredient", ingredient.getReagent());
+      model.put("ingredientID", ingredient.getId());
+      model.put("recipes", Recipe.all());
+      model.put("tags", Tag.all());
+      model.put("ingredients", Ingredient.all());
       model.put("template", "templates/recipes.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());

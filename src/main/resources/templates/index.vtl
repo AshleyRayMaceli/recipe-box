@@ -2,6 +2,34 @@ index.vtl
 
 <h1>Recipe Box</h1>
 
-<a href="/recipes/new" class="btn btn-success">Add Recipe</a>
+<form action="/recipes" method="post">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="heading">Search By Tag</h2>
+      <select multiple id='tagId' name='tagId' type='text'>
+        <option value=0 selected>All Tags</option>
+        #foreach($tag in $tags)
+          <option value=$tag.getId()>$tag.getName()</option>
+        #end
+      </select>
+    </div>
 
-<a href="/recipes" class="btn btn-success">View All Recipes</a>
+    <div class="col-md-6">
+      <h2 class="heading">Search By Ingredient</h2>
+      <select multiple id='ingredientId' name='ingredientId' type='text'>
+        <option value=0 selected>All Ingredients</option>
+        #foreach($ingredient in $ingredients)
+          <option value=$ingredient.getId()>$ingredient.getReagent()</option>
+        #end
+      </select>
+    </div>
+
+  </div>
+  <button type="submit" id="submitSearch" class="btn btn-danger">
+    <p><b class="glyphicon glyphicon glyphicon-search"></b><b class="glyphicon glyphicon-ice-lolly"></b></p>
+  </button>
+</form>
+
+<div class="row">
+  <a href="/recipes/new" class="btn btn-success">Add Recipe</a>
+</div>

@@ -1,10 +1,39 @@
 recipes.vtl
 
-<h1>All Recipes</h1>
+#if ($tagID > 0 && $ingredientID > 0)
+  <h1>All $tag Recipes Using $ingredient </h1>
 
-#foreach ($recipe in $recipes)
-  <a href="/recipes/$recipe.getId()">$recipe.getName()</a>
-  <br>
+  #foreach($recipe in $recipes)
+    #if ($recipe.getTags().contains($actualTag) && $recipe.getIngredients().contains($actualIngredient))
+    <a href="/recipes/$recipe.getId()">$recipe.getName()</a>
+    <br>
+    #end
+  #end
+
+#elseif ($tagID > 0 && $ingredientID == 0)
+  <h1>All $tag Recipes</h1>
+  #foreach($recipe in $recipes)
+    #if ($recipe.getTags().contains($actualTag))
+    <a href="/recipes/$recipe.getId()">$recipe.getName()</a>
+    <br>
+    #end
+  #end
+#elseif ($tagID == 0 && $ingredientID > 0)
+  <h1>All Recipes using $ingredient</h1>
+
+  #foreach($recipe in $recipes)
+    #if ($recipe.getIngredients().contains($actualIngredient))
+    <a href="/recipes/$recipe.getId()">$recipe.getName()</a>
+    <br>
+    #end
+  #end
+
+#else
+  <h1>All Recipes</h1>
+  #foreach($recipe in $recipes)
+    <a href="/recipes/$recipe.getId()">$recipe.getName()</a>
+    <br>
+  #end
 #end
 
 <a href="/" class="btn btn-danger">Back To Home</a>
