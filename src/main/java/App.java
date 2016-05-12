@@ -65,6 +65,15 @@ public class App {
       return null;
     });
 
+    post("/recipes/:id/update", (request, response) -> {
+      int recipeId = Integer.parseInt(request.params("id"));
+      Recipe recipe = Recipe.find(recipeId);
+      String newName = request.queryParams("update");
+      recipe.updateName(newName);
+      response.redirect("/recipes/" + recipe.getId());
+      return null;
+    });
+
     post("/recipes/:id/ingredient/:ingredient_id/delete", (request, response) -> {
       int recipeId = Integer.parseInt(request.params("id"));
       int ingredientId = Integer.parseInt(request.params("ingredient_id"));

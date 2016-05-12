@@ -74,14 +74,14 @@ public class AppTest extends FluentTest {
     assertFalse(pageSource().contains("Cheese"));
   }
 
-  // @Test
-  // public void recipeNameIsUpdated() {
-  //   Recipe testRecipe = new Recipe("Raaaaamen");
-  //   testRecipe.save();
-  //   String url = String.format("http://localhost:4567/recipes/%d", testRecipe.getId());
-  //   goTo(url);
-  //   click("a", withText("Edit Recipe Name"));
-  //   fill("#new-name").with("Ramen");
-  //   submit("#update")
-  // }
+  @Test
+  public void recipeNameIsUpdated() {
+    Recipe testRecipe = new Recipe("Raaaaamen");
+    testRecipe.save();
+    String url = String.format("http://localhost:4567/recipes/%d", testRecipe.getId());
+    goTo(url);
+    fill("#update").with("Ramen");
+    submit("#update-submit");
+    assertThat(pageSource().contains("Ramen"));
+  }
 }
