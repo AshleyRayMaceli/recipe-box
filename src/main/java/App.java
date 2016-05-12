@@ -3,6 +3,7 @@ import java.util.HashMap;
 import spark.ModelAndView;
 import spark.template.velocity.VelocityTemplateEngine;
 import static spark.Spark.*;
+import java.util.List;
 
 public class App {
   public static void main(String[] args) {
@@ -81,9 +82,23 @@ public class App {
     post("/recipes/:id/ingredient/new", (request, response) -> {
       Recipe recipe = Recipe.find(Integer.parseInt(request.params(":id")));
       String reagent = request.queryParams("reagent");
+      List<Ingredient> allIngredients = Ingredient.all();
       Ingredient newIngredient = new Ingredient(reagent);
-      newIngredient.save();
-      recipe.addIngredient(newIngredient);
+      boolean matchFound = false;
+
+      for(Ingredient oldIngredient : allIngredients) {
+        if (newIngredient.getReagent().equals(oldIngredient.getReagent())) {
+          recipe.addIngredient(oldIngredient);
+          matchFound = true;
+          break;
+        }
+      }
+
+      if (matchFound == false) {
+        newIngredient.save();
+        recipe.addIngredient(newIngredient);
+      }
+
       response.redirect("/recipes/" + recipe.getId());
       return null;
     });

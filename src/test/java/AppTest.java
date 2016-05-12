@@ -32,7 +32,7 @@ public class AppTest extends FluentTest {
   @Test
   public void allRecipesPageIsDisplayed() {
     goTo("http://localhost:4567/");
-    click("a", withText("View All Recipes"));
+    submit("#submitSearch");
     assertThat(pageSource()).contains("All Recipes");
   }
 
