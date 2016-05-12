@@ -2,25 +2,33 @@ recipe.vtl
 
 <h1>$recipe.getName()</h1>
 
-<form action="/recipes/$recipe.getId()/ingredient/new" method="post">
-  <label for="reagent">Ingredient</label>
-  <input id="reagent" name="reagent" type="text">
+<div class="row">
+  <div class="col-md-6">
+    <form action="/recipes/$recipe.getId()/ingredient/new" method="post">
+      <input id="reagent" name="reagent" type="text">
 
-  <button type="submit" class="btn btn-default">Add Ingredient</button>
-</form>
+      <button type="submit" class="btn btn-default">Add Ingredient</button>
+    </form>
 
-<form action='/recipes/$recipe.getId()/delete' method='post'>
-  <button type="submit" class="btn btn-danger" id="delete">Delete</button>
-</form>
-
-<a href="/" class="btn btn-danger">Back To Home</a>
-
-#if ($recipe.getIngredients().size() != 0)
-  <h2>Ingredients:</h2>
-  #foreach ($ingredient in $ingredients)
-    <span class="ingredient">$ingredient.getReagent()</span>
+    <form action='/recipes/$recipe.getId()/delete' method='post'>
+      <button type="submit" class="btn btn-danger" id="delete-recipe">Delete Recipe</button>
+    </form>
     <br>
-  #end
-#else
-  <h2>No Ingredients Added Yet</h2>
-#end
+    <a href="/" class="btn btn-danger">Back To Home</a>
+  </div>
+
+  <div class="col-md-6">
+    #if ($recipe.getIngredients().size() != 0)
+      <h2>Ingredients:</h2>
+      <h3>(Click An Ingredient To Delete It)</h3>
+      #foreach ($ingredient in $ingredients)
+        <form action='/recipes/$recipe.getId()/ingredient/$ingredient.getId()/delete' method='post'>
+          <button type="submit" class="btn btn-info" id="delete-ingredient-$ingredient.getId()">$ingredient.getReagent()</button>
+        </form>
+        <br>
+      #end
+    #else
+      <h2>No Ingredients Added Yet</h2>
+    #end
+  </div>
+</div>

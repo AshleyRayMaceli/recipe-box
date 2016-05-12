@@ -58,8 +58,20 @@ public class AppTest extends FluentTest {
     testRecipe.save();
     String url = String.format("http://localhost:4567/recipes/%d", testRecipe.getId());
     goTo(url);
-    submit("#delete");
+    submit("#delete-recipe");
     assertFalse(pageSource().contains("Pasta"));
+  }
+
+  @Test
+  public void ingredientIsDeleted() {
+    Recipe testRecipe = new Recipe ("PizzaPie");
+    testRecipe.save();
+    Ingredient testIngredient = new Ingredient ("Cheese");
+    testRecipe.addIngredient(testIngredient);
+    String url = String.format("http://localhost:4567/recipes/%d", testRecipe.getId());
+    goTo(url);
+    submit("#delete-ingredient-" + testIngredient.getId());
+    assertFalse(pageSource().contains("Cheese"));
   }
 
   // @Test

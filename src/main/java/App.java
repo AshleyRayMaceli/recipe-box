@@ -64,5 +64,16 @@ public class App {
       response.redirect("/recipes");
       return null;
     });
+
+    post("/recipes/:id/ingredient/:ingredient_id/delete", (request, response) -> {
+      int recipeId = Integer.parseInt(request.params("id"));
+      int ingredientId = Integer.parseInt(request.params("ingredient_id"));
+      Recipe recipe = Recipe.find(recipeId);
+      Ingredient ingredient = Ingredient.find(ingredientId);
+      ingredient.delete();
+      response.redirect("/recipes/" + recipe.getId());
+      return null;
+    });
+
   }
 }
