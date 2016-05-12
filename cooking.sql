@@ -131,6 +131,73 @@ ALTER SEQUENCE recipes_id_seq OWNED BY recipes.id;
 
 
 --
+-- Name: recipes_tags; Type: TABLE; Schema: public; Owner: Guest; Tablespace: 
+--
+
+CREATE TABLE recipes_tags (
+    id integer NOT NULL,
+    recipe_id integer,
+    tag_id integer
+);
+
+
+ALTER TABLE recipes_tags OWNER TO "Guest";
+
+--
+-- Name: recipes_tags_id_seq; Type: SEQUENCE; Schema: public; Owner: Guest
+--
+
+CREATE SEQUENCE recipes_tags_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE recipes_tags_id_seq OWNER TO "Guest";
+
+--
+-- Name: recipes_tags_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Guest
+--
+
+ALTER SEQUENCE recipes_tags_id_seq OWNED BY recipes_tags.id;
+
+
+--
+-- Name: tags; Type: TABLE; Schema: public; Owner: Guest; Tablespace: 
+--
+
+CREATE TABLE tags (
+    id integer NOT NULL,
+    name character varying
+);
+
+
+ALTER TABLE tags OWNER TO "Guest";
+
+--
+-- Name: tags_id_seq; Type: SEQUENCE; Schema: public; Owner: Guest
+--
+
+CREATE SEQUENCE tags_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE tags_id_seq OWNER TO "Guest";
+
+--
+-- Name: tags_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Guest
+--
+
+ALTER SEQUENCE tags_id_seq OWNED BY tags.id;
+
+
+--
 -- Name: id; Type: DEFAULT; Schema: public; Owner: Guest
 --
 
@@ -152,6 +219,20 @@ ALTER TABLE ONLY recipes ALTER COLUMN id SET DEFAULT nextval('recipes_id_seq'::r
 
 
 --
+-- Name: id; Type: DEFAULT; Schema: public; Owner: Guest
+--
+
+ALTER TABLE ONLY recipes_tags ALTER COLUMN id SET DEFAULT nextval('recipes_tags_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: Guest
+--
+
+ALTER TABLE ONLY tags ALTER COLUMN id SET DEFAULT nextval('tags_id_seq'::regclass);
+
+
+--
 -- Data for Name: ingredients; Type: TABLE DATA; Schema: public; Owner: Guest
 --
 
@@ -163,7 +244,7 @@ COPY ingredients (id, reagent) FROM stdin;
 -- Name: ingredients_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
 --
 
-SELECT pg_catalog.setval('ingredients_id_seq', 1, false);
+SELECT pg_catalog.setval('ingredients_id_seq', 146, true);
 
 
 --
@@ -178,7 +259,7 @@ COPY ingredients_recipes (id, ingredient_id, recipe_id) FROM stdin;
 -- Name: ingredients_recipes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
 --
 
-SELECT pg_catalog.setval('ingredients_recipes_id_seq', 1, false);
+SELECT pg_catalog.setval('ingredients_recipes_id_seq', 116, true);
 
 
 --
@@ -193,7 +274,37 @@ COPY recipes (id, name, instructions) FROM stdin;
 -- Name: recipes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
 --
 
-SELECT pg_catalog.setval('recipes_id_seq', 7, true);
+SELECT pg_catalog.setval('recipes_id_seq', 206, true);
+
+
+--
+-- Data for Name: recipes_tags; Type: TABLE DATA; Schema: public; Owner: Guest
+--
+
+COPY recipes_tags (id, recipe_id, tag_id) FROM stdin;
+\.
+
+
+--
+-- Name: recipes_tags_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
+--
+
+SELECT pg_catalog.setval('recipes_tags_id_seq', 32, true);
+
+
+--
+-- Data for Name: tags; Type: TABLE DATA; Schema: public; Owner: Guest
+--
+
+COPY tags (id, name) FROM stdin;
+\.
+
+
+--
+-- Name: tags_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
+--
+
+SELECT pg_catalog.setval('tags_id_seq', 67, true);
 
 
 --
@@ -218,6 +329,22 @@ ALTER TABLE ONLY ingredients_recipes
 
 ALTER TABLE ONLY recipes
     ADD CONSTRAINT recipes_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: recipes_tags_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace: 
+--
+
+ALTER TABLE ONLY recipes_tags
+    ADD CONSTRAINT recipes_tags_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: tags_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace: 
+--
+
+ALTER TABLE ONLY tags
+    ADD CONSTRAINT tags_pkey PRIMARY KEY (id);
 
 
 --
