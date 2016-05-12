@@ -86,16 +86,16 @@ public class TagTest {
     assertEquals("Korean", Tag.find(myTag.getId()).getName());
   }
 
-  // @Test
-  // public void delete_deleteAllTagAndRecipeAssociations() {
-  //   Recipe myRecipe = new Recipe("Wrap", "Roll a wrap with stuff in it");
-  //   myRecipe.save();
-  //   Tag myTag = new Tag("Stuff");
-  //   myTag.save();
-  //   myRecipe.addTag(myTag);
-  //   myTag.delete();
-  //   assertEquals(0, Tag.all().size());
-  //   assertEquals(0, myRecipe.getTags().size());
-  // }
+  @Test
+  public void delete_deleteAllTagAndRecipeAssociations() {
+    Recipe myRecipe = new Recipe("Wrap", "Roll a wrap with stuff in it");
+    myRecipe.save();
+    Tag myTag = new Tag("American");
+    myTag.save();
+    myRecipe.addTag(myTag);
+    myTag.delete();
+    assertEquals(0, Tag.all().size());
+    assertEquals(0, myRecipe.getTags().size());
+  }
 
 }

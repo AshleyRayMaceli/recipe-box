@@ -101,6 +101,21 @@ public class Recipe {
     }
   }
 
+  public List<Tag> getTags() {
+    try(Connection con = DB.sql2o.open()) {
+      String joinQuery = "SELECT tags.* FROM recipes " +
+      "JOIN recipes_tags ON (recipes.id = recipes_tags.recipe_id) " +
+      "JOIN tags ON (recipes_tags.tag_id = tags.id) " +
+      "WHERE recipes.id = :recipe_id";
+
+      List<Tag> tags = con.createQuery(joinQuery)
+        .addParameter("recipe_id", this.getId())
+        .executeAndFetch(Tag.class);
+
+      return tags;
+    }
+  }
+
   public void updateName(String newName) {
     try(Connection con = DB.sql2o.open()) {
       String sql = "UPDATE recipes SET name = :name WHERE id = :id";
