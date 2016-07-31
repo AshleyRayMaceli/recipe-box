@@ -1,3 +1,6 @@
+![Homepage and search page](search_homepage.png)
+![Recipe page](recipe.png)
+
 # _Recipe Box_
 
 #### _A web app where the user can add recipes, ingredients and tags to a database with SQL_
